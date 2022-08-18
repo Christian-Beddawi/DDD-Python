@@ -6,7 +6,6 @@ from ddd.Domain.RepositoryAbstraction.AbstractStudentRepo import AbstractStudent
 from ddd.Persistence.Database.Database import Student
 from ddd.Persistence.EngineCreator import EngineCreator
 
-
 class StudentRepo(AbstractStudentRepo):
     __metaclass__ = ABCMeta
 
