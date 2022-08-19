@@ -1,8 +1,6 @@
 from dependency_injector import containers, providers
-from sqlalchemy import create_engine
-from ddd.application.service.student_service import StudentService
-from ddd.domain.repository_abstraction.abstract_student_repository import AbstractStudentRepo
-from ddd.domain.service_abstraction.abstract_student_service import AbstractStudentService
+
+from ddd.domain.repository_abstraction.abstract_student_repository import AbstractStudentRepository
 from ddd.persistence.db_repository.student_repository import StudentRepository
 from ddd.persistence.connection_to_db import ConnectionCreator
 
@@ -13,9 +11,10 @@ class Container(containers.DeclarativeContainer):
 
     db_engine = providers.Singleton(ConnectionCreator, "sqlite:///college.db")
 
-    student_repo = providers.Factory(AbstractStudentRepo.register(StudentRepository), db_engine)
+    student_repo = providers.Factory(AbstractStudentRepository.register(StudentRepository), db_engine)
 
-    student_service = providers.Factory(AbstractStudentService.register(StudentService), student_repo)
+    #Removed after using cqrs
+    # student_service = providers.Factory(AbstractStudentService.register(StudentService), student_repo)
 
     # config = providers.Configuration(ini_files=["ddd/persistence/config.ini"])
     # db = EngineCreator(config)

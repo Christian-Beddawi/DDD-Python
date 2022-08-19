@@ -4,8 +4,6 @@ from sqlalchemy import create_engine
 
 engine = create_engine('sqlite:///college.db', echo=True)
 
-conn = engine.connect()
-
 metadata = db.MetaData()
 Student = db.Table('students', metadata, autoload=True, autoload_with=engine)
 
@@ -18,4 +16,4 @@ Student = db.Table('students', metadata, autoload=True, autoload_with=engine)
 #Base.prepare(engine, reflect=True)
 # mapped classes are now created with names by default
 # matching that of the table name.
-#Student = Base.classes.students
+#student = Base.classes.students
