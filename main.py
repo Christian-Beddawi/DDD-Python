@@ -1,17 +1,12 @@
 from fastapi import FastAPI
-import Container
-from Container import Container
-from ddd.Presentation.API import endpoints
-
-student_helper = Container.student_service()
+from container import Container
+from ddd.presentation.api import endpoints
 
 
-def create_app() -> FastAPI:
-    container = Container()
-    app = FastAPI()
-    app.container = container
-    app.include_router(endpoints.router)
-    return app
+container = Container()
+app = FastAPI()
+app.container = container
+app.include_router(endpoints.router)
 
 
-app = create_app()
+
