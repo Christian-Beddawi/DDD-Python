@@ -2,16 +2,17 @@ from dependency_injector import containers, providers
 
 from ddd.domain.repository_abstraction.abstract_student_repository import AbstractStudentRepository
 from ddd.persistence.db_repository.student_repository import StudentRepository
-from ddd.persistence.connection_to_db import ConnectionCreator
+from ddd.persistence.database.connection_to_db import ConnectionCreator
 
 
 class Container(containers.DeclarativeContainer):
 
     wiring_config = containers.WiringConfiguration(modules=["ddd.presentation.api.endpoints"])
 
-    db_engine = providers.Singleton(ConnectionCreator, "sqlite:///college.db")
+    # db_engine = providers.Singleton(ConnectionCreator, "sqlite:///college.db")
+    db_connection = providers.Singleton(ConnectionCreator, "mongodb://localhost/ums")
 
-    student_repo = providers.Factory(AbstractStudentRepository.register(StudentRepository), db_engine)
+    student_repo = providers.Factory(AbstractStudentRepository.register(StudentRepository), db_connection)
 
     #Removed after using cqrs
     # student_service = providers.Factory(AbstractStudentService.register(StudentService), student_repo)

@@ -7,4 +7,4 @@ class Student(BaseModel):
     id: Optional[int] = None,
     first_name: str
     last_name: str
-    DOB: Optional[datetime] = None
+    dob: Optional[datetime] = None

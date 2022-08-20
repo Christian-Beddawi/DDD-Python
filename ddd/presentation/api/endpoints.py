@@ -2,7 +2,6 @@ from fastapi import APIRouter
 from container import Container
 from ddd.application.student.commands.insert_student import InsertStudent
 from ddd.application.student.queries.get_students import GetStudents
-
 from ddd.domain.models.student import Student
 
 router = APIRouter()
@@ -19,4 +18,3 @@ async def insert_student(stud: Student):
 @router.get("/students")
 async def get_students():
     return GetStudents(Container.student_repo()).students
-
