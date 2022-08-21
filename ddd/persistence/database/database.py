@@ -1,8 +1,7 @@
 # import sqlalchemy as db
 # from sqlalchemy import create_engine
-import datetime
-
-from mongoengine import *
+# import datetime
+# from mongoengine import *
 
 # *******SQLAlchemy*******
 """engine = create_engine('sqlite:///college.db', echo=True)
@@ -11,7 +10,8 @@ Student = db.Table('students', metadata, autoload=True, autoload_with=engine)"""
 
 
 # *******MongoEngine*******
-class Students(DynamicDocument):
+
+"""class Students(DynamicDocument):
     id: IntField()
     first_name: StringField(required=True)
     last_name: StringField(required=True)
@@ -21,7 +21,10 @@ class Students(DynamicDocument):
         self.id = id,
         self.first_name = first_name
         self.last_name = last_name
-        self.dob = dob
+        self.dob = dob"""
+
+
+
 """
 Base = automap_base()
 #engine, suppose it has two tables 'user' and 'address' set up

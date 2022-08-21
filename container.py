@@ -9,10 +9,11 @@ class Container(containers.DeclarativeContainer):
 
     wiring_config = containers.WiringConfiguration(modules=["ddd.presentation.api.endpoints"])
 
-    # db_engine = providers.Singleton(ConnectionCreator, "sqlite:///college.db")
-    db_connection = providers.Singleton(ConnectionCreator, "mongodb://localhost/ums")
+    # db_engine = providers.Singleton(ConnectionCreator, "sqlite:///college.db") # SQLAlchemy
+    # db_connection = providers.Singleton(ConnectionCreator, "mongodb://localhost/ums") # MongoEngine
+    db = providers.Singleton(ConnectionCreator, "mongodb://localhost/", "ums")  # MongoEngine
 
-    student_repo = providers.Factory(AbstractStudentRepository.register(StudentRepository), db_connection)
+    student_repo = providers.Factory(AbstractStudentRepository.register(StudentRepository), db)
 
     #Removed after using cqrs
     # student_service = providers.Factory(AbstractStudentService.register(StudentService), student_repo)
