@@ -1,6 +1,5 @@
 from abc import ABC, ABCMeta, abstractmethod
 
-
 from ddd.domain.models.student import Student
 
 
@@ -13,5 +12,9 @@ class AbstractStudentRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def add_multiple_students(self, students: dict):
+        raise NotImplementedError
+
+    @abstractmethod
     def get_all_students(self):
-       raise NotImplementedError
+        raise NotImplementedError

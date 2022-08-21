@@ -1,12 +1,9 @@
 from abc import ABCMeta
 # import sqlalchemy as db
-
 from ddd.domain.models.student import Student
 from ddd.domain.repository_abstraction.abstract_student_repository import AbstractStudentRepository
 # from ddd.persistence.database.database import Students
 from ddd.persistence.database.connection_to_db import ConnectionCreator
-
-
 # from ddd.persistence.database.database import Student as Stud
 
 
@@ -24,6 +21,9 @@ class StudentRepository(AbstractStudentRepository):
         """s = Students(first_name=student.first_name, last_name=student.last_name, dob=student.dob)
         s.save()"""
 
+    def add_multiple_students(self, students: dict):
+        self.db['students'].insert_many(students)   # PyMongo
+
     def get_all_students(self):
         # PyMongo
         students_cursor = self.db['students'].find()
@@ -39,4 +39,3 @@ class StudentRepository(AbstractStudentRepository):
         return students"""
         # SQLAlchemy
         "return self.db_connection_creator.conn.execute(db.select([Stud])).fetchall()"
-
