@@ -1,3 +1,4 @@
+import uvicorn
 from fastapi import FastAPI
 from mediatr import Mediator
 from container import Container
@@ -27,3 +28,6 @@ Mediator.register_handler(GetStudentsExcelQueryHandler)
 Mediator.register_handler(InsertStudentCommandHandler)
 Mediator.register_handler(InsertStudentFromExcelCommandHandler)
 Mediator.register_handler(GetStudentsByNameQueryHandler)
+
+if __name__=="__main__":
+    uvicorn.run(app=app)

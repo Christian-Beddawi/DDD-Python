@@ -1,3 +1,4 @@
+import os
 from dependency_injector import containers, providers
 from ddd.Infrastructure.authentication.authentication import Authentication
 from ddd.Infrastructure.external_api.external_api_repository import ExternalApiRepository
@@ -22,13 +23,13 @@ from ddd.shared.excel_related_services.excel_service import ExcelService
 
 class Container(containers.DeclarativeContainer):
 
-    wiring_config = containers.WiringConfiguration(modules=["ddd.presentation.api.students_controller"])
+    wiring_config = containers.WiringConfiguration(modules=[os.environ.get('MODULES')])
 
     # db_engine = providers.Singleton(ConnectionCreator, "sqlite:///college.db") # SQLAlchemy
     # db_connection = providers.Singleton(ConnectionCreator, "mongodb://localhost/ums") # MongoEngine
-    db = providers.Singleton(ConnectionCreator, "mongodb://localhost/", "ums")  # MongoEngine
+    db_connection = providers.Singleton(ConnectionCreator, os.environ.get('PATH_TO_DB'), os.environ.get('DB_NAME'))  # MongoEngine
 
-    student_repo = providers.Factory(AbstractStudentRepository.register(StudentRepository), db)
+    student_repo = providers.Factory(AbstractStudentRepository.register(StudentRepository), db_connection)
 
     authentication = providers.Singleton(AuthenticationAbstraction.register(Authentication))
 
@@ -48,7 +49,7 @@ class Container(containers.DeclarativeContainer):
 
     insert_students_from_excel_command = providers.Factory(InsertStudentsFromExcelCommand, student_repo=student_repo, excel_service=excel_service)
 
-    external_api_repository = providers.Factory(AbstractExternalApiRepository.register(ExternalApiRepository), "http://127.0.0.1:5000/university")
+    external_api_repository = providers.Factory(AbstractExternalApiRepository.register(ExternalApiRepository), os.environ.get('PATH_TO_EXTERNAL_API_GET_UNIVERSITY_ENDPOINT'))
 
     abstract_get_uni_from_external_api = providers.Factory(AbstractGetUniversityFormExternalApi.register(GetUniversityFormExternalApi), external_api_repository)
 
